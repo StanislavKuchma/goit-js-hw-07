@@ -1,12 +1,35 @@
 import { galleryItems } from './gallery-items.js';
 // Change code below this line
+const container = document.querySelector(`ul[class="gallery"]`);
 
-console.log(galleryItems);
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/basiclightbox@5.0.4/dist/basicLightbox.min.css"></link>
+const imageMarkup = createImageItem(galleryItems);
 
-    
-    
-    
+container.insertAdjacentHTML(`beforeend`, imageMarkup);
+
+container.addEventListener(`click`, onClick);
+
+function createImageItem(item) {
+   return item
+        .map(({ preview, original, description }) => {
+        return `
+<a class="gallery__item" href="${original}">
+  <img class="gallery__image" src="${preview}" alt="${description}"/>
+</a>`
+})
+        .join(``);
+}
  
+function onClick(evt) { 
+     evt.preventDefault();
+    if (!evt.target.classList.contains(`gallery__image`)) {
+        return;
+    }
+    let lightbox = new SimpleLightbox('.gallery a', {
+        captionDelay: 250,
+        captionsData: "alt",
+        // captionPosition: `top`,
+        
 
-<script src="https://cdn.jsdelivr.net/npm/basiclightbox@5.0.4/dist/basicLightbox.min.js"></script>
+    });
+
+ }
